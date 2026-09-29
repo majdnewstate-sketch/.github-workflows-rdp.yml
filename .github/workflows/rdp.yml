@@ -9,6 +9,11 @@ jobs:
     timeout-minutes: 360
 
     steps:
+    - name: Download Ngrok
+      run: |
+        Invoke-WebRequest -Uri "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip" -OutFile "ngrok.zip"
+        Expand-Archive -LiteralPath "ngrok.zip" -DestinationPath C:\ngrok
+
     - name: Set Password
       run: |
         net user runneradmin MyPassword123!
@@ -18,4 +23,7 @@ jobs:
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
         Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-        
+
+    - name: Start Ngrok Tunnel
+      run: |
+        C:\ngrok\ngrok tcp 3389
