@@ -1,4 +1,4 @@
-name: Free Windows RDP
+namename: Free Windows RDP
 
 on:
   workflow_dispatch:
