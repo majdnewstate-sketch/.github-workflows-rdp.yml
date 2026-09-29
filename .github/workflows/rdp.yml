@@ -1,4 +1,4 @@
-: Free Windows RDP
+name: Free Windows RDP
 
 on:
   workflow_dispatch:
@@ -17,8 +17,7 @@ jobs:
     - name: Set Password
       run: |
         net user runneradmin MyPassword123!
-
-    - name: Enable RDP
+            - name: Enable RDP
       run: |
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
@@ -27,3 +26,4 @@ jobs:
     - name: Start Ngrok Tunnel
       run: |
         C:\ngrok\ngrok tcp 3389
+        
